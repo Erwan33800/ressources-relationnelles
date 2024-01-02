@@ -3,6 +3,7 @@ version: "3"
 services:
   db:
     image: mysql
+    container_name: db_rr
     restart: always
     volumes:
       - db-data:/var/lib/mysql
@@ -13,6 +14,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin
+    container_name: phpmyadmin_rr
     depends_on:
       - db
     ports:
@@ -24,6 +26,7 @@ services:
 
   www:
     build: docker
+    container_name: www_rr
     ports:
       - "8000:80"
     volumes:
