@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Ressource;
 
-use App\Repository\RessourceRepository;
+use App\Repository\Ressource\RessourceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -46,6 +46,13 @@ class Ressource
 
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $eventDate;
+
+    #[ORM\OneToOne(
+        inversedBy: 'post',
+        targetEntity: Thumbnail::class,
+        cascade: ['persist', 'remove']
+    )]
+    private ?Thumbnail $thumbnail = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $createdAt;
@@ -165,9 +172,21 @@ class Ressource
 
         return $this;
     }
-    
+
     public function __toString(): string
     {
         return $this->getTitle();
+    }
+
+    public function getThumbnail(): ?Thumbnail
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(?Thumbnail $thumbnail): self
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
     }
 }
