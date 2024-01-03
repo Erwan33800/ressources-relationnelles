@@ -22,7 +22,6 @@ class RessourceFixtures extends Fixture
                 ->setState($faker->randomElement(Ressource::STATES))
                 ->setEventDate(DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year', '+1 year')))
                 ->setNbLike(mt_rand(0, 100));
-
             $manager->persist($ressource);
         }
 
